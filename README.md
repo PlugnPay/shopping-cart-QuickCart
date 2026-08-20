@@ -12,16 +12,12 @@ Easy to install payment modules for the [Quick.Cart](https://opensolution.org/Qu
   - Source: [./QuickCart_v6.7.x/src/PlugnPaySs2/](./QuickCart_v6.7.x/src/PlugnPaySs2/)
   - Docs: [package README](./QuickCart_v6.7.x/README.md) · [INSTALL_SS2.txt](./QuickCart_v6.7.x/INSTALL_SS2.txt) · [module README](./QuickCart_v6.7.x/src/PlugnPaySs2/README.md)
 
-Package overview: [./QuickCart_v6.7.x/README.md](./QuickCart_v6.7.x/README.md)
-
 ### Quick.Cart v6.5.x (legacy Smart Screens)
 
 * **Smart Screens** — hosted checkout via `pay.cgi` (template overlay)
   - [Download](./QuickCart_v6.5.x/quickcart_6.5_ss_module.zip)
   - Source: [./QuickCart_v6.5.x/src/ss/](./QuickCart_v6.5.x/src/ss/)
   - Docs: [package README](./QuickCart_v6.5.x/README.md) · [INSTALL.txt](./QuickCart_v6.5.x/INSTALL.txt) · [vendor notes](./QuickCart_v6.5.x/src/ss/readme_install.txt)
-
-Package overview: [./QuickCart_v6.5.x/README.md](./QuickCart_v6.5.x/README.md)
 
 ## Installation
 
@@ -32,7 +28,7 @@ For complete instructions, open the README inside the zip (or the linked docs ab
 1. Download [quickcart_6.7_ss2_module.zip](./QuickCart_v6.7.x/quickcart_6.7_ss2_module.zip).
 2. Back up `templates/default/order-step-3.php`.
 3. Extract the package into the Quick.Cart root.
-4. Configure `plugins/plugnpay_ss2/config.php`.
+4. Edit `plugins/plugnpay_ss2/config.php` (gateway account, currency, payment ID, and store URL).
 
 - Quick install: [QuickCart_v6.7.x/INSTALL_SS2.txt](./QuickCart_v6.7.x/INSTALL_SS2.txt)
 
@@ -58,7 +54,7 @@ For complete instructions, open the README inside the zip (or the linked docs ab
 * Hosted checkout at `https://pay1.plugnpay.com/pay/`.
 * Quick.Cart does **not** collect sensitive payment data.
 * Authorization-only (`pb_post_auth=no`); successful orders remain **Pending** for settlement in PlugnPay Merchant Admin.
-* Return checks cover PlugnPay's response signature, amount, currency, gateway account, order ID, and a one-time token.
+* Return checks cover amount, currency, gateway account, order ID, and a one-time token.
 
 ## Repository layout
 

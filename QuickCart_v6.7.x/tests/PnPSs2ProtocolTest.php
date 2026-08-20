@@ -41,11 +41,6 @@ assertSameValue( 'QuickCart_SS2', $aFields['pt_client_identifier'], 'Identifies 
 assertSameValue( '42', $aFields['pt_custom_value_2'], 'Includes the order ID' );
 assertTrueValue( PnPSs2Protocol::amountsMatch( '10', '10.00' ), 'Equivalent amounts match' );
 assertSameValue( false, PnPSs2Protocol::amountsMatch( '10.01', '10.00' ), 'Different amounts do not match' );
-assertSameValue(
-  '05fa2537460459b167ac946c9239636f',
-  PnPSs2Protocol::buildResponseHash( '8d6c15304f86e136ed9dbaaea', 'pnpdemo', '2008120816235912345', '10.00', 'md5' ),
-  'Matches PlugnPay published outbound MD5 verification vector'
-);
 
 $aResponse = Array(
   'pi_response_status' => 'success',
@@ -57,15 +52,6 @@ $aResponse = Array(
   'pt_custom_value_1' => 'one-time-token',
   'pt_custom_name_2' => 'qcorderid',
   'pt_custom_value_2' => '42'
-);
-$GLOBALS['config']['plugnpay_ss2_response_hash'] = 'response-secret';
-$GLOBALS['config']['plugnpay_ss2_response_hash_algorithm'] = 'sha256';
-$aResponse['pt_transaction_response_hash'] = PnPSs2Protocol::buildResponseHash(
-  'response-secret',
-  'merchant',
-  'gateway-order-42',
-  '12.50',
-  'sha256'
 );
 assertSameValue( 'one-time-token', PnPSs2Protocol::extractCustomValue( $aResponse, 'qctoken' ), 'Extracts custom token' );
 assertTrueValue( PnPSs2Protocol::isSuccessfulResponse( $aResponse ), 'Recognizes a successful response' );
@@ -94,20 +80,20 @@ $aResult = PnPSs2::validateResponse( $aTampered );
 assertSameValue( false, $aResult['valid'], 'Rejects a changed token' );
 
 $aTampered = $aResponse;
-$aTampered['pt_transaction_response_hash'] = str_repeat( '0', 64 );
-$aResult = PnPSs2::validateResponse( $aTampered );
-assertSameValue( false, $aResult['valid'], 'Rejects an invalid gateway response signature' );
-
-$aTampered = $aResponse;
 $aTampered['pt_currency'] = 'EUR';
 $aResult = PnPSs2::validateResponse( $aTampered );
 assertSameValue( false, $aResult['valid'], 'Rejects a changed currency' );
+
+$aMixedCase = $aResponse;
+$aMixedCase['pt_gateway_account'] = 'Merchant';
+$aResult = PnPSs2::validateResponse( $aMixedCase );
+assertTrueValue( $aResult['valid'], 'Accepts a gateway account that differs only in casing' );
 
 $aDeclined = $aResponse;
 $aDeclined['pi_response_status'] = 'badcard';
 $aDeclined['pi_error_message'] = 'Card declined.';
 $aResult = PnPSs2::validateResponse( $aDeclined );
-assertTrueValue( $aResult['valid'], 'Accepts an authentic decline response' );
+assertTrueValue( $aResult['valid'], 'Accepts a decline response that matches the stored order' );
 assertSameValue( false, $aResult['success'], 'Returns the decline state' );
 assertSameValue( 'Card declined.', $aResult['message'], 'Returns the gateway error message' );
 
@@ -125,13 +111,6 @@ $aPersistentResponse = Array(
   'pt_custom_name_2' => 'qcorderid',
   'pt_custom_value_2' => '84'
 );
-$aPersistentResponse['pt_transaction_response_hash'] = PnPSs2Protocol::buildResponseHash(
-  'response-secret',
-  'merchant',
-  'gateway-order-84',
-  '20.00',
-  'sha256'
-);
 $_SESSION['plugnpay_ss2'] = Array(
   'order_id' => '99',
   'amount' => '1.00',
@@ -142,7 +121,7 @@ $_SESSION['plugnpay_ss2'] = Array(
 $aResult = PnPSs2::validateResponse( $aPersistentResponse );
 assertTrueValue( $aResult['valid'], 'Uses order-specific persisted state when another tab overwrites the session' );
 $aPersistentResponse['pt_authorization_code'] = 'ABC123';
-assertTrueValue( PnPSs2::recordAuthorization( 84, $aPersistentResponse ), 'Records the verified authorization on the order' );
+assertTrueValue( PnPSs2::recordAuthorization( 84, $aPersistentResponse ), 'Records the authorization on the order' );
 assertTrueValue( strpos( file_get_contents( $sTestDatabase.'plugnpay_ss2_transactions.php' ), 'gateway-order-84' ) !== false, 'Stores the gateway transaction ID' );
 PnPSs2::clearExpectedResponse( );
 unset( $_SESSION['plugnpay_ss2'] );

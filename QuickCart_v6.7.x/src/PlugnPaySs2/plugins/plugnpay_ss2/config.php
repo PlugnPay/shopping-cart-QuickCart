@@ -8,14 +8,6 @@ $config['plugnpay_ss2_gateway_account'] = 'YOUR_GATEWAY_ACCOUNT';
 $config['plugnpay_ss2_currency'] = 'USD';
 
 /*
- * Outbound response-verification secret configured in PlugnPay Security
- * Administration. Contact PlugnPay Support to enable Response Verification
- * Hash for the account, then paste the generated secret here.
- */
-$config['plugnpay_ss2_response_hash'] = 'YOUR_RESPONSE_VERIFICATION_HASH';
-$config['plugnpay_ss2_response_hash_algorithm'] = 'sha256';
-
-/*
  * Quick.Cart payment-method ID that should launch Smart Screens v2.
  * The stock English database uses ID 3 for "On-line payment".
  */

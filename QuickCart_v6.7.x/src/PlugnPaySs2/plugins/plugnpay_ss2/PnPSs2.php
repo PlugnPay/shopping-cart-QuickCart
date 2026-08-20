@@ -13,8 +13,6 @@ class PnPSs2
     return !empty( $GLOBALS['config']['plugnpay_ss2_gateway_account'] )
       && $GLOBALS['config']['plugnpay_ss2_gateway_account'] !== 'YOUR_GATEWAY_ACCOUNT'
       && !empty( $GLOBALS['config']['plugnpay_ss2_currency'] )
-      && !empty( $GLOBALS['config']['plugnpay_ss2_response_hash'] )
-      && $GLOBALS['config']['plugnpay_ss2_response_hash'] !== 'YOUR_RESPONSE_VERIFICATION_HASH'
       && !empty( $GLOBALS['config']['plugnpay_ss2_store_url'] )
       && $GLOBALS['config']['plugnpay_ss2_store_url'] !== 'https://shop.example.com/';
   }
@@ -139,21 +137,6 @@ class PnPSs2
       return Array( 'valid' => false, 'message' => 'The payment currency did not match.' );
     }
 
-    $sTransactionOrderId = isset( $aResponse['pt_order_id'] ) ? trim( (string) $aResponse['pt_order_id'] ) : '';
-    $sReturnedHash = isset( $aResponse['pt_transaction_response_hash'] )
-      ? strtolower( trim( (string) $aResponse['pt_transaction_response_hash'] ) )
-      : ( isset( $aResponse['resphash'] ) ? strtolower( trim( (string) $aResponse['resphash'] ) ) : '' );
-    $sExpectedHash = PnPSs2Protocol::buildResponseHash(
-      $GLOBALS['config']['plugnpay_ss2_response_hash'],
-      $aExpected['gateway_account'],
-      $sTransactionOrderId,
-      $aExpected['amount'],
-      $GLOBALS['config']['plugnpay_ss2_response_hash_algorithm']
-    );
-    if( $sTransactionOrderId === '' || $sReturnedHash === '' || !self::safeEquals( $sExpectedHash, $sReturnedHash ) ){
-      return Array( 'valid' => false, 'message' => 'The gateway response signature could not be verified.' );
-    }
-
     return Array(
       'valid' => true,
       'success' => PnPSs2Protocol::isSuccessfulResponse( $aResponse ),
@@ -211,7 +194,7 @@ class PnPSs2
   }
 
   /**
-   * Appends the verified authorization to a dedicated audit file without
+   * Appends the authorization to a dedicated audit file without
    * rewriting Quick.Cart's order database.
    *
    * @param int $iOrder

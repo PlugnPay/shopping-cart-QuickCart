@@ -4,7 +4,7 @@ Package for Quick.Cart Shopping Cart **v6.5** (free edition, OpenSolution). Lega
 
 Install by editing the publisher settings in the template, then uploading it into `templates/default/`.
 
-## Choose a module
+## Module
 
 | | Smart Screens |
 |---|---|

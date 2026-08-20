@@ -29,11 +29,6 @@ To install:
      plugnpay_ss2_currency
        Three-letter account currency, for example USD.
 
-     plugnpay_ss2_response_hash
-       Outbound Response Verification Hash created in PlugnPay
-       Security Administration. Contact PlugnPay Support to enable
-       this feature. Select the matching md5 or sha256 algorithm.
-
      plugnpay_ss2_payment_id
        Quick.Cart payment method that launches PlugnPay. The stock
        English database uses ID 3 for "On-line payment".
@@ -49,9 +44,9 @@ To install:
 
 Transactions are authorization-only (pb_post_auth=no). Successful
 orders remain Pending and must be settled in PlugnPay Merchant Admin.
-Unsigned responses are rejected. The verified transaction ID and
-authorization code are stored in database/plugnpay_ss2_transactions.php
-and included in the merchant order email.
+The PlugnPay transaction ID and authorization code are stored in
+database/plugnpay_ss2_transactions.php and included in the merchant
+order email.
 
 Full documentation:
   src/PlugnPaySs2/README.md

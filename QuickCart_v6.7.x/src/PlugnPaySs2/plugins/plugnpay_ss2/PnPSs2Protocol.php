@@ -99,29 +99,5 @@ class PnPSs2Protocol
   public static function isGatewayResponse( $aResponse ){
     return isset( $aResponse['pi_response_status'] );
   }
-
-  /**
-   * Recreates PlugnPay's outbound response verification hash.
-   *
-   * @param string $sSecret
-   * @param string $sGatewayAccount
-   * @param string $sTransactionOrderId
-   * @param mixed $mAmount
-   * @param string $sAlgorithm
-   * @return string
-   */
-  public static function buildResponseHash( $sSecret, $sGatewayAccount, $sTransactionOrderId, $mAmount, $sAlgorithm ){
-    $sAlgorithm = strtolower( trim( (string) $sAlgorithm ) );
-    if( $sAlgorithm !== 'sha256' )
-      $sAlgorithm = 'md5';
-
-    return hash(
-      $sAlgorithm,
-      (string) $sSecret
-      .(string) $sGatewayAccount
-      .(string) $sTransactionOrderId
-      .self::normalizeAmount( $mAmount )
-    );
-  }
 }
 ?>

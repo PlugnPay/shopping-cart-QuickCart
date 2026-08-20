@@ -31,7 +31,6 @@ The legacy 6.5 module uses Smart Screens v1 (`pay.cgi`) as a template overlay. D
 - Quick.Cart **6.7.x**
 - PHP **5.2+**
 - Storefront HTTPS (strongly recommended)
-- PlugnPay outbound Response Verification Hash enabled and configured
 
 ## Development layout
 
