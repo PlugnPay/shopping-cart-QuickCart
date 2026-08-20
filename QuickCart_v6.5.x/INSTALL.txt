@@ -1,0 +1,50 @@
+====================================================
+PlugnPay Smart Screens Module
+Payment module for Quick.Cart Shopping Cart v6.5
+====================================================
+
+***** IMPORTANT NOTES *****
+This module is provided "AS IS". Limited technical support assistance
+will be given to help diagnose/address problems with this module.
+
+This package replaces templates/default/order-step-3.php so that after
+Quick.Cart saves the order, the customer pays on PlugnPay hosted
+Smart Screens (https://pay1.plugnpay.com/payment/pay.cgi).
+
+Compatible with Quick.Cart v6.5 (free edition, 2014-09-16 release).
+Not tested on v6.4 or earlier.
+***************************
+
+To Install:
+
+1. Download quickcart_6.5_ss_module.zip from this folder
+   (or use the src/ss/ tree in this repository).
+
+2. Open order-step-3.php in a text editor.
+
+3. Replace [MERCHANT] on the publisher-name field with your
+   PlugnPay username.
+
+     i.e. <input type="hidden" name="publisher-name" value="pnpdemo2">
+
+4. Set card-allowed to the card types your account can settle.
+   Do not list types you cannot accept.
+
+     i.e. <input type="hidden" name="card-allowed" value="visa,mastercard,amex,discover">
+
+5. If ACH/eCheck is enabled on the account, uncomment the payment
+   method radios in the template (see vendor notes).
+
+6. Upload the modified order-step-3.php into templates/default/
+   on the store, overwriting the existing file.
+
+7. Check file permissions: .php files may need chmod 755.
+
+See the package overview:
+  QuickCart_v6.5.x/README.md
+
+Vendor notes:
+  src/ss/readme_install.txt
+
+Source (development):
+  src/ss/

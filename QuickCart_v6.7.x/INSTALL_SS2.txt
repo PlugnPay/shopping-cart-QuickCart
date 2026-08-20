@@ -1,0 +1,57 @@
+====================================================
+PlugnPay Smart Screens v2
+Payment module for Quick.Cart v6.7
+====================================================
+
+This module is provided "AS IS". It uses PlugnPay hosted checkout and
+does not collect payment-card data in Quick.Cart.
+
+IMPORTANT:
+The package replaces templates/default/order-step-3.php. Back up that
+file and merge any local template customizations before installation.
+
+To install:
+
+1. Download quickcart_6.7_ss2_module.zip from this folder (or use
+   src/PlugnPaySs2/).
+
+2. Extract the package into the Quick.Cart root. It installs:
+
+     PLUGNPAY_SS2_README.md
+     plugins/plugnpay_ss2/
+     templates/default/order-step-3.php
+
+3. Edit plugins/plugnpay_ss2/config.php:
+
+     plugnpay_ss2_gateway_account
+       Your PlugnPay gateway account.
+
+     plugnpay_ss2_currency
+       Three-letter account currency, for example USD.
+
+     plugnpay_ss2_response_hash
+       Outbound Response Verification Hash created in PlugnPay
+       Security Administration. Contact PlugnPay Support to enable
+       this feature. Select the matching md5 or sha256 algorithm.
+
+     plugnpay_ss2_payment_id
+       Quick.Cart payment method that launches PlugnPay. The stock
+       English database uses ID 3 for "On-line payment".
+
+     plugnpay_ss2_store_url
+       Public HTTPS URL of the Quick.Cart installation. This value
+       is required and is not inferred from request headers.
+
+4. In Quick.Cart admin, enable the matching payment method and link it
+   to each shipping method that should offer PlugnPay.
+
+5. Place a test order with merchant-supplied test credentials.
+
+Transactions are authorization-only (pb_post_auth=no). Successful
+orders remain Pending and must be settled in PlugnPay Merchant Admin.
+Unsigned responses are rejected. The verified transaction ID and
+authorization code are stored in database/plugnpay_ss2_transactions.php
+and included in the merchant order email.
+
+Full documentation:
+  src/PlugnPaySs2/README.md
