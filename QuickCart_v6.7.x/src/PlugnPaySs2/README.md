@@ -28,7 +28,7 @@ See `../../INSTALL_SS2.txt` for the short installation guide.
 - Successful responses consume the token to prevent replay.
 - The verified PlugnPay transaction ID and authorization code are written to `database/plugnpay_ss2_transactions.php` and included in the merchant's order email for reconciliation.
 
-Because Quick.Cart 6.7 has no payment-module API, this package replaces `templates/default/order-step-3.php`. Reapply or review the overlay if that template has local customizations.
+Because Quick.Cart 6.7 has no payment-plugin extension point, this package replaces `templates/default/order-step-3.php`. Reapply or review the overlay if that template has local customizations.
 
 ## Package layout
 

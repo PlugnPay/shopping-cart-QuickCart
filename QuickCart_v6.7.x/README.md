@@ -1,32 +1,23 @@
-# Quick.Cart v6.7.x — PlugnPay Payment Modules
+# Quick.Cart v6.7.x — PlugnPay Smart Screens v2
 
-Payment modules for Quick.Cart Shopping Cart **v6.7.x**. Smart Screens v2 is available; Remote API remains planned.
+Payment module for Quick.Cart Shopping Cart **v6.7.x**. Hosted, authorization-only checkout at `https://pay1.plugnpay.com/pay/`. Quick.Cart does **not** collect sensitive payment data.
 
-## Choose a module
+## Module
 
-| | Remote API | Smart Screens v2 |
-|---|---|---|
-| Folder | `src/PlugnPayApi/` | [`src/PlugnPaySs2/`](./src/PlugnPaySs2/) |
-| Download | *(to be added)* | [quickcart_6.7_ss2_module.zip](./quickcart_6.7_ss2_module.zip) |
-| Checkout | Onsite card fields → `pnpremote.cgi` | Redirect → `https://pay1.plugnpay.com/pay/` |
-| Card data on your server | Yes | No |
-| PCI scope | Higher | Lower |
-| Authorization | `authonly` or `authpostauth` | Authorization-only (`pb_post_auth=no`) |
-| Admin Capture / Void / Refund | No (use PlugnPay Admin) | No (use PlugnPay Admin) |
-| Status | Not packaged yet | Available for Quick.Cart 6.7 |
-
-You may install both when they exist; enable only the method(s) you need.
-
-## Remote API (onsite) — planned
-
-Collects card data on the storefront and posts from the server to PlugnPay Remote API. Capture / void / refund are done in PlugnPay Merchant Admin.
-
-- Source: `src/PlugnPayApi/` *(to be added)*
-- Quick install: `INSTALL.txt` *(to be added)*
+| | Smart Screens v2 |
+|---|---|
+| Folder | [`src/PlugnPaySs2/`](./src/PlugnPaySs2/) |
+| Download | [quickcart_6.7_ss2_module.zip](./quickcart_6.7_ss2_module.zip) |
+| Checkout | Redirect → `https://pay1.plugnpay.com/pay/` |
+| Card data on your server | No |
+| PCI scope | Lower |
+| Authorization | Authorization-only (`pb_post_auth=no`) |
+| Admin Capture / Void / Refund | No (use PlugnPay Admin) |
+| Status | Available for Quick.Cart 6.7 |
 
 ## Smart Screens v2 (hosted)
 
-Redirects customers to PlugnPay hosted Smart Screens. The cart does **not** collect sensitive payment data. Successful auths should leave the order pending until settled in PlugnPay Admin.
+Redirects customers to PlugnPay hosted Smart Screens. Successful auths leave the order pending until settled in PlugnPay Admin.
 
 - Source: [src/PlugnPaySs2/](./src/PlugnPaySs2/)
 - Download: [quickcart_6.7_ss2_module.zip](./quickcart_6.7_ss2_module.zip)
@@ -38,8 +29,8 @@ The legacy 6.5 module uses Smart Screens v1 (`pay.cgi`) as a template overlay. D
 ### Requirements
 
 - Quick.Cart **6.7.x**
-- PHP **5.2+** for Smart Screens v2
-- Storefront HTTPS (strongly recommended for SS2)
+- PHP **5.2+**
+- Storefront HTTPS (strongly recommended)
 - PlugnPay outbound Response Verification Hash enabled and configured
 
 ## Development layout
@@ -47,11 +38,9 @@ The legacy 6.5 module uses Smart Screens v1 (`pay.cgi`) as a template overlay. D
 ```
 QuickCart_v6.7.x/
   README.md
-  INSTALL.txt                 # Remote API (to be added)
-  INSTALL_SS2.txt             # Smart Screens v2
+  INSTALL_SS2.txt
   quickcart_6.7_ss2_module.zip
   src/
-    PlugnPayApi/              # to be added
     PlugnPaySs2/
       plugins/plugnpay_ss2/
       templates/default/

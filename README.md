@@ -1,7 +1,7 @@
 # Shopping Cart - Quick.Cart Payment Modules
 
 Easy to install payment modules for the [Quick.Cart](https://opensolution.org/Quick.Cart/) shopping cart (OpenSolution).
-**Quick.Cart 6.5** keeps the legacy Smart Screens (`pay.cgi`) template overlay. **Quick.Cart 6.7** includes Smart Screens v2 hosted checkout, with Remote API reserved for future work.
+**Quick.Cart 6.5** keeps the legacy Smart Screens (`pay.cgi`) template overlay. **Quick.Cart 6.7** includes Smart Screens v2 hosted checkout.
 
 ## Downloads by Quick.Cart version
 
@@ -11,8 +11,6 @@ Easy to install payment modules for the [Quick.Cart](https://opensolution.org/Qu
   - [Download](./QuickCart_v6.7.x/quickcart_6.7_ss2_module.zip)
   - Source: [./QuickCart_v6.7.x/src/PlugnPaySs2/](./QuickCart_v6.7.x/src/PlugnPaySs2/)
   - Docs: [package README](./QuickCart_v6.7.x/README.md) · [INSTALL_SS2.txt](./QuickCart_v6.7.x/INSTALL_SS2.txt) · [module README](./QuickCart_v6.7.x/src/PlugnPaySs2/README.md)
-
-Remote API is planned but not packaged.
 
 Package overview: [./QuickCart_v6.7.x/README.md](./QuickCart_v6.7.x/README.md)
 
